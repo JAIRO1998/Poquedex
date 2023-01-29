@@ -3,19 +3,29 @@ import { InfoPokemons } from '../helpers/InfoPokemons';
 export const Card = (pokemons) => {
 
     const {name, url} = pokemons.data;
-    const sprite = InfoPokemons(url);
-    console.log(sprite);
-
+    const sprite = InfoPokemons(url); 
+    console.log(sprite.descripcion);
   return (
       <>
+      {
+        ! sprite ?
+        <div>Cargando</div>
+        :
+      
         <div className="card" key={name}>
-            <img src={sprite} className="card-img-top"></img>
+            <img src={sprite.datos} className="card-img-top" alt='Img pokemon' />
             <div className="card-body">
              <h5 className="card-title">{name}</h5>
-             <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-             <a href={url} className="btn btn-primary" target="_blank">Mas Information</a>
+             {
+              !sprite.descripcion ?
+              <p className="card-text">Información no encontrada</p>
+              :
+              <p className="card-text">{sprite.descripcion}</p>
+             }
+             <a href={url} className="btn btn-primary">Mas Information</a>
             </div>
         </div>
+        }
       </>
   )
 }
